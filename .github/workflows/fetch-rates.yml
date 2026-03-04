@@ -32,6 +32,42 @@ jobs:
       - name: Fetch snapshots
         run: python scripts/fetch_rates.py
 
+      - name: Validate snapshot gate
+        run: |
+          python - <<'PY'
+          import json
+          import time
+          from pathlib import Path
+
+          path = Path("data/latest/usdt_cny.json")
+          if not path.exists():
+              raise SystemExit("gate failed: missing data/latest/usdt_cny.json")
+
+          data = json.loads(path.read_text(encoding="utf-8"))
+          pair = str(data.get("pair") or "")
+          bid = data.get("bid")
+          ask = data.get("ask")
+          ts = data.get("asof_ts")
+
+          if pair != "USDT/CNY":
+              raise SystemExit(f"gate failed: invalid pair={pair}")
+          if not isinstance(bid, (int, float)) or bid <= 0:
+              raise SystemExit(f"gate failed: invalid bid={bid}")
+          if not isinstance(ask, (int, float)) or ask <= 0:
+              raise SystemExit(f"gate failed: invalid ask={ask}")
+          if ask < bid:
+              raise SystemExit(f"gate failed: ask({ask}) < bid({bid})")
+          if not isinstance(ts, int) or ts <= 0:
+              raise SystemExit(f"gate failed: invalid asof_ts={ts}")
+
+          max_age_sec = 240 * 60
+          age = int(time.time()) - ts
+          if age > max_age_sec:
+              raise SystemExit(f"gate failed: stale snapshot age={age}s")
+
+          print("gate passed: usdt_cny snapshot is valid")
+          PY
+
       - name: Commit changes
         run: |
           git config user.name "github-actions[bot]"
