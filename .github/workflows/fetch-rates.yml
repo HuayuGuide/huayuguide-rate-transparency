@@ -1,6 +1,13 @@
 name: Fetch Rate Snapshots
 
 on:
+  push:
+    branches:
+      - main
+    paths:
+      - scripts/**
+      - .github/workflows/**
+      - requirements.txt
   schedule:
     - cron: '*/30 * * * *'
   workflow_dispatch:

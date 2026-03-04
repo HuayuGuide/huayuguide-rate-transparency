@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import json
 import math
+import hashlib
 import statistics
 import time
 from datetime import datetime, timezone
@@ -289,7 +290,17 @@ def build_snapshot(bid_pick: Dict[str, Any], ask_pick: Dict[str, Any]) -> Dict[s
     quality = clamp((float(bid_pick.get("quality", 60.0)) + float(ask_pick.get("quality", 60.0))) / 2.0, 35.0, 99.0)
     sample_count = int(min(int(bid_pick.get("sample_count", 0)), int(ask_pick.get("sample_count", 0))))
 
-    digest = f"{BASE}/{FIAT}|{bid:.8f}|{ask:.8f}|{source}|{CALC_VERSION}|{ts // 1800}"
+    # 审计可复现：使用稳定哈希（禁用 Python 内置 hash 的随机盐特性）
+    hash_payload = {
+        "pair": f"{BASE}/{FIAT}",
+        "bid": round(bid, 8),
+        "ask": round(ask, 8),
+        "source": source,
+        "calc_version": CALC_VERSION,
+        "bucket_30m": ts // 1800,
+    }
+    digest = json.dumps(hash_payload, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+    stable_hash = hashlib.sha256(digest.encode("utf-8")).hexdigest()
 
     return {
         "pair": f"{BASE}/{FIAT}",
@@ -305,7 +316,7 @@ def build_snapshot(bid_pick: Dict[str, Any], ask_pick: Dict[str, Any]) -> Dict[s
         "dispersion": None if dispersion is None else round(float(dispersion), 8),
         "quality_score": round(quality, 1),
         "calc_version": CALC_VERSION,
-        "input_hash": str(abs(hash(digest))),
+        "input_hash": stable_hash,
         "generated_at": now_iso(ts),
     }
 
