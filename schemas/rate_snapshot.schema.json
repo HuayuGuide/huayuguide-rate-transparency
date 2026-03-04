@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://huayuguide.com/schemas/rate_snapshot.schema.json",
+  "title": "Rate Snapshot",
+  "type": "object",
+  "required": [
+    "pair",
+    "bid",
+    "ask",
+    "mid",
+    "asof_ts",
+    "asof_iso",
+    "source",
+    "quality_score",
+    "calc_version",
+    "generated_at"
+  ],
+  "properties": {
+    "pair": { "type": "string", "pattern": "^[A-Z]{2,10}/[A-Z]{2,10}$" },
+    "bid": { "type": "number", "exclusiveMinimum": 0 },
+    "ask": { "type": "number", "exclusiveMinimum": 0 },
+    "mid": { "type": "number", "exclusiveMinimum": 0 },
+    "asof_ts": { "type": "integer", "minimum": 0 },
+    "asof_iso": { "type": "string" },
+    "timezone": { "type": "string" },
+    "source": { "type": "string" },
+    "source_count": { "type": "integer", "minimum": 0 },
+    "sample_count": { "type": "integer", "minimum": 0 },
+    "dispersion": { "type": ["number", "null"], "minimum": 0 },
+    "quality_score": { "type": "number", "minimum": 0, "maximum": 100 },
+    "calc_version": { "type": "string" },
+    "input_hash": { "type": "string" },
+    "generated_at": { "type": "string" },
+    "notes": { "type": "string" }
+  }
+}
