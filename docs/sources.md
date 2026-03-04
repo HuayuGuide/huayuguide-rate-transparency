@@ -1,13 +1,13 @@
-# Sources and Reliability
+# Sources and Reliability (USDT/CNY)
 
-## Primary
-- Binance P2P (public web endpoint)
-- OKX P2P (public web endpoint)
+## Primary sources
+- Binance P2P（网页公开接口）
+- OKX P2P（网页公开接口）
 
-## Fallback
-- Binance Spot / OKX Spot / CoinGecko
-- Fiat FX feed (for non-primary fallback synthesis)
+## Fallback strategy
+- 同轮抓取失败：优先另一家交易所补齐 bid/ask
+- 两家都失败：保留上一次 `data/latest/usdt_cny.json`，并在 `pipeline_status.json` 标记 `degraded`
 
 ## Notes
-- P2P 数据更贴近中文用户真实换汇场景。
-- Spot 不等于用户真实成交价，仅用于兜底与完整性保障。
+- P2P 更贴近中文用户真实换汇场景
+- 当前仓库不使用 Spot+FX 作为业务口径

@@ -1,18 +1,12 @@
 {
-  "generated_at": "2026-03-04T16:03:20Z",
+  "generated_at": "2026-03-04T16:58:48Z",
   "status": "ok",
-  "produced_pairs": 3,
-  "required_pairs": 3,
-  "last_source": "binance_p2p",
+  "produced_pairs": 1,
+  "required_pairs": 1,
+  "last_source": "okx_p2p",
   "attempts": [
     "binance_p2p:CNY",
-    "okx_p2p:CNY",
-    "binance_p2p:HKD",
-    "okx_p2p:HKD",
-    "binance_p2p:PHP",
-    "okx_p2p:PHP"
+    "okx_p2p:CNY"
   ],
-  "errors": [
-    "okx_p2p:HKD:missing bid/ask from OKX P2P"
-  ]
+  "errors": []
 }

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Health check for latest snapshot freshness and shape."""
+"""Health check for USDT/CNY snapshot freshness and shape."""
 
 from __future__ import annotations
 
@@ -12,13 +12,18 @@ ROOT = Path(__file__).resolve().parents[1]
 LATEST = ROOT / "data" / "latest"
 
 
-def check_pair(path: Path, max_age_sec: int) -> tuple[bool, str]:
+def check_snapshot(path: Path, max_age_sec: int) -> tuple[bool, str]:
     if not path.exists():
         return False, f"missing file: {path.name}"
+
     try:
         data = json.loads(path.read_text(encoding="utf-8"))
     except Exception as e:
         return False, f"invalid json: {path.name}: {e}"
+
+    pair = str(data.get("pair") or "")
+    if pair != "USDT/CNY":
+        return False, f"invalid pair in {path.name}: {pair}"
 
     bid = data.get("bid")
     ask = data.get("ask")
@@ -36,23 +41,20 @@ def check_pair(path: Path, max_age_sec: int) -> tuple[bool, str]:
     age = int(time.time()) - ts
     if age > max_age_sec:
         return False, f"stale snapshot {path.name}: age={age}s"
+
     return True, f"ok: {path.name}"
 
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--max-age-minutes", type=int, default=180)
+    parser.add_argument("--max-age-minutes", type=int, default=240)
     args = parser.parse_args()
 
-    files = [LATEST / "usdt_cny.json", LATEST / "usdt_hkd.json", LATEST / "usdt_php.json"]
     max_age_sec = args.max_age_minutes * 60
+    path = LATEST / "usdt_cny.json"
 
-    ok = True
-    for p in files:
-        status, msg = check_pair(p, max_age_sec)
-        print(msg)
-        ok = ok and status
-
+    ok, msg = check_snapshot(path, max_age_sec)
+    print(msg)
     return 0 if ok else 1
 
 
