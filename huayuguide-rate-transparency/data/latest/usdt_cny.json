@@ -1,0 +1,17 @@
+{
+  "pair": "USDT/CNY",
+  "bid": 6.92,
+  "ask": 6.98051316,
+  "mid": 6.95025658,
+  "asof_ts": 1772638169,
+  "asof_iso": "2026-03-04T15:29:29Z",
+  "timezone": "UTC",
+  "source": "okx_p2p",
+  "source_count": 1,
+  "sample_count": 144,
+  "dispersion": 0.00112841,
+  "quality_score": 98.5,
+  "calc_version": "rt_v2",
+  "input_hash": "3118818243058666695",
+  "generated_at": "2026-03-04T15:29:29Z"
+}

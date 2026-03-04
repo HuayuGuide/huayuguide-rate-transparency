@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://huayuguide.com/schemas/source_health.schema.json",
+  "title": "Source Health",
+  "type": "object",
+  "required": ["generated_at", "sources"],
+  "properties": {
+    "generated_at": { "type": "string" },
+    "sources": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["status", "last_ok_ts", "last_err_ts", "fail_streak"],
+        "properties": {
+          "status": { "type": "string", "enum": ["ok", "degraded", "down", "unknown"] },
+          "last_ok_ts": { "type": ["integer", "null"], "minimum": 0 },
+          "last_err_ts": { "type": ["integer", "null"], "minimum": 0 },
+          "fail_streak": { "type": "integer", "minimum": 0 },
+          "last_error": { "type": ["string", "null"] },
+          "last_sample_count": { "type": ["integer", "null"], "minimum": 0 }
+        }
+      }
+    }
+  }
+}
