@@ -1,13 +1,6 @@
 name: Fetch Rate Snapshots
 
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - scripts/**
-      - .github/workflows/**
-      - requirements.txt
   schedule:
     - cron: '*/30 * * * *'
   workflow_dispatch:
@@ -38,9 +31,6 @@ jobs:
 
       - name: Fetch snapshots
         run: python scripts/fetch_rates.py
-
-      - name: Health check
-        run: python scripts/health_check.py --max-age-minutes 240
 
       - name: Commit changes
         run: |
