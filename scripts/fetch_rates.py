@@ -21,7 +21,7 @@ STATUS_DIR = ROOT / "status"
 
 BASE = "USDT"
 FIAT = "CNY"
-CALC_VERSION = "rt_v3_usdt_cny"
+CALC_VERSION = "rt_v4_bidask"
 TIMEOUT = 12
 UA = (
     "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
@@ -283,6 +283,7 @@ def build_snapshot(bid_pick: Dict[str, Any], ask_pick: Dict[str, Any]) -> Dict[s
     src_bid = str(bid_pick.get("source", "unknown"))
     src_ask = str(ask_pick.get("source", "unknown"))
     source = src_bid if src_bid == src_ask else f"{src_bid}+{src_ask}"
+    source_pool = sorted(set([src for src in [src_bid, src_ask] if src]))
 
     disp_vals = [v for v in [bid_pick.get("dispersion"), ask_pick.get("dispersion")] if isinstance(v, (int, float))]
     dispersion = (sum(disp_vals) / len(disp_vals)) if disp_vals else None
@@ -311,10 +312,19 @@ def build_snapshot(bid_pick: Dict[str, Any], ask_pick: Dict[str, Any]) -> Dict[s
         "asof_iso": now_iso(ts),
         "timezone": "UTC",
         "source": source,
+        "bid_source": src_bid,
+        "ask_source": src_ask,
+        "source_pool": source_pool,
         "source_count": len(set([src_bid, src_ask])),
         "sample_count": sample_count,
+        "sample_count_bid": int(bid_pick.get("sample_count", 0) or 0),
+        "sample_count_ask": int(ask_pick.get("sample_count", 0) or 0),
         "dispersion": None if dispersion is None else round(float(dispersion), 8),
+        "dispersion_bid": None if bid_pick.get("dispersion") is None else round(float(bid_pick.get("dispersion")), 8),
+        "dispersion_ask": None if ask_pick.get("dispersion") is None else round(float(ask_pick.get("dispersion")), 8),
         "quality_score": round(quality, 1),
+        "quality_score_bid": round(float(bid_pick.get("quality", 60.0)), 1),
+        "quality_score_ask": round(float(ask_pick.get("quality", 60.0)), 1),
         "calc_version": CALC_VERSION,
         "input_hash": stable_hash,
         "generated_at": now_iso(ts),

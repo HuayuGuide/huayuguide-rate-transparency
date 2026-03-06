@@ -2,7 +2,10 @@
 
 公开汇率透明仓，服务 [huayuguide.com](https://huayuguide.com) 的审计汇率中心。
 
-当前版本只维护一个快照：`USDT/CNY`。
+当前版本只维护一个快照：`USDT/CNY`，并输出双边报价：
+- `bid`：用户卖 U 参考价（充值审计用）
+- `ask`：用户买 U 参考价（提款审计用）
+- `mid`：仅用于健康监控，不参与审计结论
 
 ## 输出文件
 - `data/latest/usdt_cny.json`：当前最新快照
@@ -24,7 +27,7 @@
 4. 检查 `data/latest/usdt_cny.json` 是否更新
 
 ## 对接插件
-插件汇率中心读取 GitHub 快照（`data/latest/usdt_cny.json`）作为主源，实时失败时回退站内历史缓存。
+插件审计链优先读取 GitHub 快照（`data/latest/usdt_cny.json`）的 `bid/ask`，失败时再回退站内历史缓存。
 
 ## 审计声明
 本仓仅提供参考汇率快照，不构成投资建议。见 [DISCLAIMER.md](./DISCLAIMER.md)。
