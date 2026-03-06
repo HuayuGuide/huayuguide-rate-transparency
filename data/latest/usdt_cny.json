@@ -1,17 +1,17 @@
 {
   "pair": "USDT/CNY",
-  "bid": 6.91017143,
-  "ask": 6.96983893,
-  "mid": 6.94000518,
-  "asof_ts": 1772816882,
-  "asof_iso": "2026-03-06T17:08:02Z",
+  "bid": 6.90770833,
+  "ask": 6.97342282,
+  "mid": 6.94056558,
+  "asof_ts": 1772820098,
+  "asof_iso": "2026-03-06T18:01:38Z",
   "timezone": "UTC",
   "source": "okx_p2p",
   "source_count": 1,
-  "sample_count": 140,
-  "dispersion": 0.00139812,
-  "quality_score": 94.9,
+  "sample_count": 144,
+  "dispersion": 0.00187523,
+  "quality_score": 95.0,
   "calc_version": "rt_v3_usdt_cny",
-  "input_hash": "11dd87660b7329ea327cd2b2d073feca1289be18ee0d24a1477d7a9577cea415",
-  "generated_at": "2026-03-06T17:08:02Z"
+  "input_hash": "1ee40435a010989636eab123da099680cb0b8f61b0f68cc7fa06c790eef44a58",
+  "generated_at": "2026-03-06T18:01:38Z"
 }
