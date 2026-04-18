@@ -1,10 +1,10 @@
 {
   "pair": "USDT/CNY",
   "bid": 6.82141892,
-  "ask": 6.84783673,
-  "mid": 6.83462783,
-  "asof_ts": 1776494856,
-  "asof_iso": "2026-04-18T06:47:36Z",
+  "ask": 6.84720548,
+  "mid": 6.8343122,
+  "asof_ts": 1776499327,
+  "asof_iso": "2026-04-18T08:02:07Z",
   "timezone": "UTC",
   "source": "okx_p2p",
   "bid_source": "okx_p2p",
@@ -13,16 +13,16 @@
     "okx_p2p"
   ],
   "source_count": 1,
-  "sample_count": 147,
+  "sample_count": 146,
   "sample_count_bid": 148,
-  "sample_count_ask": 147,
-  "dispersion": 0.00071044,
+  "sample_count_ask": 146,
+  "dispersion": 0.00067572,
   "dispersion_bid": 0.00062293,
-  "dispersion_ask": 0.00079795,
-  "quality_score": 95.4,
+  "dispersion_ask": 0.00072851,
+  "quality_score": 95.3,
   "quality_score_bid": 95.4,
   "quality_score_ask": 95.3,
   "calc_version": "rt_v4_bidask",
-  "input_hash": "8f7cf88bbfef6187c870ced3321bbb000578a0c2a7762c03234ce78bb460de0e",
-  "generated_at": "2026-04-18T06:47:36Z"
+  "input_hash": "ae818322254707fd7542919a80baf96d405d39044a51070c5a31024330d2f1a3",
+  "generated_at": "2026-04-18T08:02:07Z"
 }
