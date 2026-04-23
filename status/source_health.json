@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-04-23T04:36:29Z",
+  "generated_at": "2026-04-23T07:02:58Z",
   "sources": {
     "binance_p2p": {
       "status": "ok",
-      "last_ok_ts": 1776918988,
+      "last_ok_ts": 1776927778,
       "last_err_ts": 1772584200,
       "fail_streak": 0,
       "last_error": null,
@@ -11,11 +11,11 @@
     },
     "okx_p2p": {
       "status": "ok",
-      "last_ok_ts": 1776918989,
+      "last_ok_ts": 1776927778,
       "last_err_ts": 1772638172,
       "fail_streak": 0,
       "last_error": null,
-      "last_sample_count": 142
+      "last_sample_count": 144
     },
     "spot_fx_fallback": {
       "status": "ok",
